@@ -11,3 +11,8 @@ You can open this folder in Processing or through your favorite code editor. You
 ### Terminal mode
 
 Most information can be find here https://github.com/processing/processing/wiki/Command-Line.
+
+How to quickly run the project from your terminal:
+
+```bash
+# cd to project folder
