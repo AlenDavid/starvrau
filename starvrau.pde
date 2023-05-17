@@ -14,7 +14,7 @@ void setup () {
   stroke(255);
   strokeWeight(1);
   size(800, 600, P3D);
-  noFill();
+  fill(0);
 
   player = new Player();
   
@@ -105,7 +105,7 @@ public class Player extends GameEntity{
   }
 
   public void drawVertex(){
-    beginShape();
+    beginShape(TRIANGLE_FAN);
     vertex(-50, -50/3, -50);
     vertex( 50, -50/3, -50);
     vertex(   0,    0,  50);
@@ -233,7 +233,6 @@ public class BackgroundStar extends GameEntity{
 
   public void drawVertex() {
     sphere(3);
-    fill(65);
   }
 
   void drawThis() {
