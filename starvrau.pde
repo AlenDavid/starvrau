@@ -156,31 +156,3 @@ public class BackgroundStar extends GameEntity {
     popMatrix();
   }
 }
-
-
-
-/* Comentei pra nao perder a logica
- void keyPressed() {
- if (key == 'w') incX = 1;
- if (key == 's') incX = -1;
- if (key == 'a') incY = -1;
- if (key == 'd') incY = 1;
- }
-
- void keyReleased() {
- if (key == 'w') incX = 0;
- if (key == 's') incX = 0;
- if (key == 'a') incY = 0;
- if (key == 'd') incY = 0;
- }
-
- void draw() {
- background(0);
-
- posX += incX;
- posY += incY;
- rotateY(((posY-200.0)/100.0 * PI) - PI);
- rotateX(((posX-200.0)/100.0 * PI) - PI);
-
- }
- */
