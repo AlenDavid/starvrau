@@ -55,7 +55,7 @@ public class Player extends GameEntity {
   }
 
   /**Renderiza a Nave */
-  public void drawThis() {
+  public void draw() {
     //Garante q as alteracoes acontecao na nave aenas
     pushMatrix();
     beforeDraw();

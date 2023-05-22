@@ -87,7 +87,7 @@ public class Asteroid extends GameEntity {
   }
 
   /**Renderiza o asteroide */
-  public void drawThis() {
+  public void draw() {
     pushMatrix();
     beforeDraw();
     translate(x, y, z);

@@ -5,5 +5,5 @@ abstract class GameEntity {
 
   void beforeDraw() {}
   void drawVertex() {}
-  void drawThis() {}
+  void draw() {}
 }

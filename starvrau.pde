@@ -1,15 +1,3 @@
-Player player;
-float currentDeltaForPlayer=4.0;
-float thresholdForRemoval=500;
-int i;
-
-//Variaveis para o FOV da camera, a coodernada Z da camera
-//o Plano da camera e o horizonte do mundo
-float fov, cameraZ, nearPlane, horizon;
-
-ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-ArrayList<BackgroundStar> stars = new ArrayList<BackgroundStar>();
-
 void setup () {
   smooth();
   stroke(255);
@@ -22,7 +10,6 @@ void setup () {
 }
 
 void draw() {
-
   resetMatrix();
 
   beginCamera();
@@ -38,7 +25,7 @@ void draw() {
   background(0);
 
   //renderiza o player
-  player.drawThis();
+  player.draw();
 
   //Cria as estrelas para dar um efeito do movimento
   //Afinal o espaço nao eh tao vazio assim
@@ -59,7 +46,7 @@ void draw() {
   //Java sendo Java
   for (i = stars.size()-1; i >= 0; i--) {
     BackgroundStar s = stars.get(i);
-    s.drawThis();
+    s.draw();
     if (s.isNoLongerVisible()) {
       stars.remove(s);
     }
@@ -70,28 +57,13 @@ void draw() {
   //Java sendo Java
   for (i = asteroids.size()-1; i >= 0; i--) {
     Asteroid s = asteroids.get(i);
-    s.drawThis();
+    s.draw();
     if (s.isNoLongerVisible()) {
       asteroids.remove(s);
     }
   }
 }
 
-void keyPressed() {
-  if (key == 'w') player.deltaY = -currentDeltaForPlayer;
-  if (key == 's') player.deltaY = currentDeltaForPlayer;
-  if (key == 'a') player.deltaX = -currentDeltaForPlayer;
-  if (key == 'd') player.deltaX = currentDeltaForPlayer;
-  //this is for test only, remove in the end
-  if (key == '0') player.deltaZ = currentDeltaForPlayer;
-}
-
-void keyReleased() {
-  if (key == 'w') player.deltaY = 0.0;
-  if (key == 's') player.deltaY = 0.0;
-  if (key == 'a') player.deltaX = 0.0;
-  if (key == 'd') player.deltaX = 0.0;
-}
 
 boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
   float x1 = entity1.x - entity1.eWidth/2;

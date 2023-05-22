@@ -23,7 +23,7 @@ public class BackgroundStar extends GameEntity {
   }
 
   /**Renderiza o asteroide */
-  void drawThis() {
+  void draw() {
 
     pushMatrix();
     beforeDraw();
