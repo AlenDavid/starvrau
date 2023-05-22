@@ -5,12 +5,13 @@ public class Player extends GameEntity {
   float mainMeasure = 50.0;
 
   public Player () {
-    x=width/2;
-    y=height/1.2;
+    entityWidth=mainMeasure*2;
+    entityDepth=mainMeasure*2;
+    entityHeight=mainMeasure/1.5;
+
+    x=0.0;
+    y=0.0;
     z=0.0;
-    eWidth=mainMeasure*2;
-    eDepth=mainMeasure*2;
-    eHeight=mainMeasure/1.5;
   }
 
   /**Lógica antes de desenhar a nave*/
@@ -36,21 +37,21 @@ public class Player extends GameEntity {
   public void drawVertex() {
     beginShape();
 
-    vertex( mainMeasure, -mainMeasure/3, mainMeasure);
-    vertex( mainMeasure, mainMeasure/3, mainMeasure);
-    vertex(   0, 0, -mainMeasure);
+    vertex( x+mainMeasure, y-(mainMeasure/3), mainMeasure);
+    vertex( x+mainMeasure, y+(mainMeasure/3), mainMeasure);
+    vertex(   x, y, -mainMeasure);
 
-    vertex( mainMeasure, mainMeasure/3, mainMeasure);
-    vertex(-mainMeasure, mainMeasure/3, mainMeasure);
-    vertex(   0, 0, -mainMeasure);
+    vertex( x+mainMeasure, y+(mainMeasure/3), mainMeasure);
+    vertex(x-mainMeasure, y+(mainMeasure/3), mainMeasure);
+    vertex(   x, y, -mainMeasure);
 
-    vertex(-mainMeasure, mainMeasure/3, mainMeasure);
-    vertex(-mainMeasure, -mainMeasure/3, mainMeasure);
-    vertex(   0, 0, -mainMeasure);
+    vertex(x-mainMeasure, y+(mainMeasure/3), mainMeasure);
+    vertex(x-mainMeasure, y-(mainMeasure/3), mainMeasure);
+    vertex(   x, y, -mainMeasure);
 
-    vertex(-mainMeasure, -mainMeasure/3, mainMeasure);
-    vertex( mainMeasure, -mainMeasure/3, mainMeasure);
-    vertex(   0, 0, -mainMeasure);
+    vertex(x-mainMeasure, y-(mainMeasure/3), mainMeasure);
+    vertex( x+mainMeasure, y-(mainMeasure/3), mainMeasure);
+    vertex(   x, y, -mainMeasure);
     endShape();
   }
 
@@ -62,6 +63,7 @@ public class Player extends GameEntity {
     stroke(255);
     checkCollision();
     translate(x, y, z);
+
     //ajusta o angulo do poligono da nave
     //rotateX(PI);
     drawVertex();

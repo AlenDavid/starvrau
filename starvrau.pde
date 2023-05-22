@@ -1,3 +1,5 @@
+boolean debug = true;
+
 void setup () {
   smooth();
   stroke(255);
@@ -62,34 +64,45 @@ void draw() {
       asteroids.remove(s);
     }
   }
+
+  //Remove os lasers nao mais visiveis
+  //Varre o array de tras pra frente pra evitar concorrencia
+  //Java sendo Java
+  for (i = lasers.size()-1; i >= 0; i--) {
+    GameEntity s = lasers.get(i);
+    s.draw();
+    if (s.isNoLongerVisible()) {
+      asteroids.remove(s);
+    }
+  }
 }
 
 
 boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
-  float x1 = entity1.x - entity1.eWidth/2;
-  float y1 = entity1.y - entity1.eHeight/2;
-  float z1 = entity1.z - entity1.eDepth/2;
-  float x2 = entity2.x - entity2.eWidth/2;
-  float y2 = entity2.y - entity2.eHeight/2;
-  float z2 = entity2.z - entity2.eDepth/2;
+  float x1 = entity1.x - entity1.entityWidth/2;
+  float y1 = entity1.y - entity1.entityHeight/2;
+  float z1 = entity1.z - entity1.entityDepth/2;
+  float x2 = entity2.x - entity2.entityWidth/2;
+  float y2 = entity2.y - entity2.entityHeight/2;
+  float z2 = entity2.z - entity2.entityDepth/2;
 
   pushMatrix();
   translate(entity1.x, entity1.y, entity1.z);
   noFill();
   stroke(255, 0, 0); // Cor vermelha
-  //box(entity1.eWidth,  entity1.eHeight, entity1.eDepth);
+  //box(entity1.entityWidth,  entity1.entityHeight, entity1.entityDepth);
   popMatrix();
 
   pushMatrix();
   translate(entity2.x, entity2.y, entity2.z);
   noFill();
   stroke(255, 0, 0);
-  //box(entity2.eWidth,  entity2.eHeight, entity2.eDepth);
+  //box(entity2.entityWidth,  entity2.entityHeight, entity2.entityDepth);
   popMatrix();
 
   stroke(255);
 
-  return (abs(x1 - x2) < (entity1.eWidth + entity2.eWidth)) &&
-    (abs(y1 - y2)  < (entity1.eHeight + entity2.eHeight)) &&
-    (abs(z1 - z2)  < (entity1.eDepth + entity2.eDepth));
+  return (abs(x1 - x2) < (entity1.entityWidth + entity2.entityWidth)) &&
+    (abs(y1 - y2)  < (entity1.entityHeight + entity2.entityHeight)) &&
+    (abs(z1 - z2)  < (entity1.entityDepth + entity2.entityDepth));
 }

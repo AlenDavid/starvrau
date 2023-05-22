@@ -9,3 +9,7 @@ float fov, cameraZ, nearPlane, horizon;
 
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 ArrayList<BackgroundStar> stars = new ArrayList<BackgroundStar>();
+ArrayList<Laser> lasers = new ArrayList<Laser>();
+
+// TODO: use this later.
+ArrayList<GameEntity> entities = new ArrayList<GameEntity>();
