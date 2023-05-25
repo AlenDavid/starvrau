@@ -1,3 +1,4 @@
+import processing.sound.*;
 boolean debug = true;
 
 void setup () {
@@ -7,6 +8,15 @@ void setup () {
   size(800, 600, P3D);
   frameRate(60);
   fill(0);
+
+  //Inicia a musica de fundo
+  backgroundMusic= new SoundFile(this, "lasermonia.wav");
+  backgroundMusic.loop();
+
+  for(int i=0;i<4;i++){
+    laserShootSounds.add(
+      new SoundFile(this, String.format("laser%s.wav",i)));
+  }
 
   player = new Player();
 }

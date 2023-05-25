@@ -3,6 +3,9 @@ public class Laser extends GameEntity {
     this.x = x;
     this.y = y;
     this.z = z;
+
+    //Som do tiro
+    laserShootSounds.get((int)random(1,4)).play();
   }
 
   public void drawVertex() {
