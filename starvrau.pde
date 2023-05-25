@@ -13,7 +13,8 @@ void setup () {
   backgroundMusic= new SoundFile(this, "lasermonia.wav");
   backgroundMusic.loop();
 
-  for(int i=0;i<4;i++){
+  //Inicia o array de sons dos lasers
+  for(int i=1;i<4;i++){
     laserShootSounds.add(
       new SoundFile(this, String.format("laser%s.wav",i)));
   }
