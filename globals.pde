@@ -3,14 +3,12 @@ float currentDeltaForPlayer=4.0;
 float thresholdForRemoval=500;
 int i;
 
-
-
 //Variavies dos sons
 SoundFile backgroundMusic;
 ArrayList<SoundFile> laserShootSounds = new ArrayList<SoundFile>();
 ArrayList<SoundFile> hitSounds = new ArrayList<SoundFile>();
 ArrayList<SoundFile> explosionSounds = new ArrayList<SoundFile>();
-ArrayList<SoundFile> barrelRowSounds = new ArrayList<SoundFile>();
+ArrayList<SoundFile> barrelRollSounds = new ArrayList<SoundFile>();
 
 //Variaveis para o FOV da camera, a coodernada Z da camera
 //o Plano da camera e o horizonte do mundo

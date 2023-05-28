@@ -1,6 +1,7 @@
 /**Classe q representa um asteroid, melhor nao bater neles*/
 public class Asteroid extends GameEntity {
   float points[][] = new float[8][3];
+  int life = 5;
 
   public Asteroid(float x, float y, float z) {
     this.x = x;
@@ -42,6 +43,24 @@ public class Asteroid extends GameEntity {
   /**Retorna true se nao ta mais aparecendo na tela, otimizacao de memoria: nem todo mundo tem um mac*/
   public boolean isNoLongerVisible() {
     return (z > thresholdForRemoval);
+  }
+
+  /**Checa se um laser acertou o asteroid */
+  public void checkCollision() {
+    for (i = lasers.size()-1; i >= 0; i--) {
+      Laser laser = lasers.get(i);
+      if (checkIntersection(this, laser)) {
+        stroke(255, 0, 0);
+        hitSounds.get((int)random(0,4)).play();
+        lasers.remove(laser);
+        life--;
+        if (life == 0) {
+           asteroids.remove(this);
+           explosionSounds.get((int)random(0,4)).play();
+        }
+        stroke(255);
+      }
+    }
   }
 
   /**Logica antes de desenhar, atualiza a posicao */
@@ -90,12 +109,13 @@ public class Asteroid extends GameEntity {
   public void draw() {
     pushMatrix();
     beforeDraw();
+    checkCollision();
     translate(x, y, z);
     // Adiciona rotações em todos os eixos
     // Corpos em movimento permanecem em movimento
-    /*  rotateX(frameCount * 0.0004);
-     rotateY(frameCount * 0.0004);
-     rotateZ(frameCount * 0.0001); */
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.01);
+    rotateZ(frameCount * 0.01);
     drawVertex();
     //println("Asteroid ", this, "in X ", x, " Y ", y, " Z ", z);
     popMatrix();

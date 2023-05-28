@@ -28,6 +28,7 @@ public class Player extends GameEntity {
       if (checkIntersection(this, asteroid)) {
         println("Player colidiu com o asteroide ", asteroid);
         stroke(255, 0, 0);
+        hitSounds.get((int)random(0,4)).play();
         asteroids.remove(asteroid);
       }
     }
@@ -37,21 +38,21 @@ public class Player extends GameEntity {
   public void drawVertex() {
     beginShape();
 
-    vertex( x+mainMeasure, y-(mainMeasure/3), mainMeasure);
-    vertex( x+mainMeasure, y+(mainMeasure/3), mainMeasure);
-    vertex(   x, y, -mainMeasure);
+    vertex( mainMeasure, -(mainMeasure/3), mainMeasure);
+    vertex( +mainMeasure, +(mainMeasure/3), mainMeasure);
+    vertex(   0, 0, -mainMeasure);
 
-    vertex( x+mainMeasure, y+(mainMeasure/3), mainMeasure);
-    vertex(x-mainMeasure, y+(mainMeasure/3), mainMeasure);
-    vertex(   x, y, -mainMeasure);
+    vertex( +mainMeasure, +(mainMeasure/3), mainMeasure);
+    vertex(-mainMeasure, +(mainMeasure/3), mainMeasure);
+    vertex(   0, 0, -mainMeasure);
 
-    vertex(x-mainMeasure, y+(mainMeasure/3), mainMeasure);
-    vertex(x-mainMeasure, y-(mainMeasure/3), mainMeasure);
-    vertex(   x, y, -mainMeasure);
+    vertex(-mainMeasure, +(mainMeasure/3), mainMeasure);
+    vertex(-mainMeasure, -(mainMeasure/3), mainMeasure);
+    vertex(   0, 0, -mainMeasure);
 
-    vertex(x-mainMeasure, y-(mainMeasure/3), mainMeasure);
-    vertex( x+mainMeasure, y-(mainMeasure/3), mainMeasure);
-    vertex(   x, y, -mainMeasure);
+    vertex(-mainMeasure, -(mainMeasure/3), mainMeasure);
+    vertex( +mainMeasure, -(mainMeasure/3), mainMeasure);
+    vertex(   0, 0, -mainMeasure);
     endShape();
   }
 

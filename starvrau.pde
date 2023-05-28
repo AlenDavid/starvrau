@@ -14,20 +14,38 @@ void setup () {
   backgroundMusic.loop();
 
   //Inicia o array de sons dos lasers
-  for(int i=1;i<4;i++){
+  for(int i=0;i<4;i++){
     laserShootSounds.add(
-      new SoundFile(this, String.format("laser%s.wav",i)));
+      new SoundFile(this, String.format("laser%s.wav",i+1)));
   }
+
+  //Inicia o array de sons dos hits
+  for(int i=0;i<4;i++){
+    hitSounds.add(
+      new SoundFile(this, String.format("hit%s.wav",i+1)));
+  }
+
+  //Inicia o array de sons dos rolls
+  for(int i=0;i<2;i++){
+    barrelRollSounds.add(
+      new SoundFile(this, String.format("roll%s.wav",i+1)));
+  }
+
+  //Inicia o array de sons das explosoes
+  for(int i=0;i<4;i++){
+    explosionSounds.add(
+      new SoundFile(this, String.format("explosion%s.wav",i+1)));
+  }
+
 
   player = new Player();
 }
 
 void draw() {
   resetMatrix();
-
   beginCamera();
   camera();
-  fov = PI/2.5;
+  fov = PI/2.7;
   cameraZ = (height/2.0) / tan(fov/2.0);
   nearPlane = cameraZ / 20.0;
   horizon = cameraZ * 20.0;
@@ -65,6 +83,17 @@ void draw() {
     }
   }
 
+  //Remove os lasers nao mais visiveis
+  //Varre o array de tras pra frente pra evitar concorrencia
+  //Java sendo Java
+  for (i = lasers.size()-1; i >= 0; i--) {
+    GameEntity s = lasers.get(i);
+    s.draw();
+    if (s.isNoLongerVisible()) {
+      lasers.remove(s);
+    }
+  }
+
   //Remove os asteroides nao mais visiveis
   //Varre o array de tras pra frente pra evitar concorrencia
   //Java sendo Java
@@ -76,16 +105,6 @@ void draw() {
     }
   }
 
-  //Remove os lasers nao mais visiveis
-  //Varre o array de tras pra frente pra evitar concorrencia
-  //Java sendo Java
-  for (i = lasers.size()-1; i >= 0; i--) {
-    GameEntity s = lasers.get(i);
-    s.draw();
-    if (s.isNoLongerVisible()) {
-      asteroids.remove(s);
-    }
-  }
 }
 
 
@@ -97,21 +116,23 @@ boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
   float y2 = entity2.y - entity2.entityHeight/2;
   float z2 = entity2.z - entity2.entityDepth/2;
 
-  pushMatrix();
-  translate(entity1.x, entity1.y, entity1.z);
-  noFill();
-  stroke(255, 0, 0); // Cor vermelha
-  //box(entity1.entityWidth,  entity1.entityHeight, entity1.entityDepth);
-  popMatrix();
+  if (debug){
+    pushMatrix();
+    translate(entity1.x, entity1.y, entity1.z);
+    noFill();
+    stroke(255, 0, 0); // Cor vermelha
+    box(entity1.entityWidth,  entity1.entityHeight, entity1.entityDepth);
+    popMatrix();
 
-  pushMatrix();
-  translate(entity2.x, entity2.y, entity2.z);
-  noFill();
-  stroke(255, 0, 0);
-  //box(entity2.entityWidth,  entity2.entityHeight, entity2.entityDepth);
-  popMatrix();
+    pushMatrix();
+    translate(entity2.x, entity2.y, entity2.z);
+    noFill();
+    stroke(255, 0, 0);
+    box(entity2.entityWidth,  entity2.entityHeight, entity2.entityDepth);
+    popMatrix();
 
-  stroke(255);
+    stroke(255);
+  }
 
   return (abs(x1 - x2) < (entity1.entityWidth + entity2.entityWidth)) &&
     (abs(y1 - y2)  < (entity1.entityHeight + entity2.entityHeight)) &&
