@@ -28,7 +28,8 @@ public class Player extends GameEntity {
       if (checkIntersection(this, asteroid)) {
         println("Player colidiu com o asteroide ", asteroid);
         stroke(255, 0, 0);
-        hitSounds.get((int)random(0,4)).play();
+        explosionSounds.get((int)random(0,4)).play();
+        explosions.add(new Explosion(asteroid));
         asteroids.remove(asteroid);
       }
     }

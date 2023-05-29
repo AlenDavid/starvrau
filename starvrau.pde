@@ -105,6 +105,17 @@ void draw() {
     }
   }
 
+  //Remove as explosoes nao mais visiveis
+  //Varre o array de tras pra frente pra evitar concorrencia
+  //Java sendo Java
+  for (i = explosions.size()-1; i >= 0; i--) {
+    Explosion s = explosions.get(i);
+    s.draw();
+    if (s.isNoLongerVisible()) {
+      explosions.remove(s);
+    }
+  }
+
 }
 
 

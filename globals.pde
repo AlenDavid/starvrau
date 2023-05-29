@@ -15,6 +15,7 @@ ArrayList<SoundFile> barrelRollSounds = new ArrayList<SoundFile>();
 float fov, cameraZ, nearPlane, horizon;
 
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+ArrayList<Explosion> explosions = new ArrayList<Explosion>();
 ArrayList<BackgroundStar> stars = new ArrayList<BackgroundStar>();
 ArrayList<Laser> lasers = new ArrayList<Laser>();
 
