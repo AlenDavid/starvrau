@@ -1,5 +1,5 @@
 import processing.sound.*;
-boolean debug = true;
+boolean debug = false;
 
 void setup () {
   smooth();
@@ -7,11 +7,16 @@ void setup () {
   strokeWeight(1);
   size(800, 600, P3D);
   frameRate(60);
-  fill(0);
+
+  font = createFont("font.ttf",128);
+  textFont(font);
 
   //Inicia a musica de fundo
   backgroundMusic= new SoundFile(this, "lasermonia.wav");
-  backgroundMusic.loop();
+
+   //Inicia a musica de fundo
+  titleMusic= new SoundFile(this, "hazeroid.wav");
+  titleMusic.loop();
 
   //Inicia o array de sons dos lasers
   for(int i=0;i<4;i++){
@@ -42,78 +47,114 @@ void setup () {
 }
 
 void draw() {
-  resetMatrix();
-  beginCamera();
-  camera();
-  fov = PI/2.7;
-  cameraZ = (height/2.0) / tan(fov/2.0);
-  nearPlane = cameraZ / 20.0;
-  horizon = cameraZ * 20.0;
-  perspective(fov, float(width)/float(height), nearPlane, horizon);
-  //rotateX(PI/20);
-  endCamera();
+  if (titleScreen){
+    background(0);
+    fill(255);
+    textSize(40);
+    textAlign(CENTER);
+    text("STAR VRAU", width/2, height/2);
 
-  background(0);
+    textSize(10);
+    text("Enter your name and ", width/2, height/2+40);
+    text("Press SPACEBAR to start", width/2, height/2+40+25);
 
-  //renderiza o player
-  player.draw();
+    textSize(40);
+    fill(0,200,125);
+    text(playerName, width/2, height/2+40+85);
+    
+  } else {
+    resetMatrix();
+    beginCamera();
+    camera();
+    fov = PI/2.9;
+    cameraZ = (height/2.0) / tan(fov/2.0);
+    nearPlane = cameraZ / 20.0;
+    horizon = cameraZ * 20.0;
+    perspective(fov, float(width)/float(height), nearPlane, horizon);
+    //rotateX(PI/20);
+    endCamera();
 
-  //Cria as estrelas para dar um efeito do movimento
-  //Afinal o espaço nao eh tao vazio assim
-  if (frameCount % 10 == 0) {
-    stars.add(new BackgroundStar(random(width), random(height)));
-  }
+    background(0);
+    fill(0);
 
-  //Cria os asteroides, precisa de uma lógica de geraçao melhor, talvez orientado a dificuldade
-  //nao sei
-  if (frameCount % 300 == 0) {
-    Asteroid asteroid = new Asteroid(random(100, width), random(100, height), -7000);
-    asteroid.deltaZ = 70.0;  // Velocidade de aproximação do asteroide
-    asteroids.add(asteroid);
-  }
+    //render the player
+    player.draw();
 
-  //Remove as estrelas nao mais visiveis
-  //Varre o array de tras pra frente pra evitar concorrencia
-  //Java sendo Java
-  for (i = stars.size()-1; i >= 0; i--) {
-    BackgroundStar s = stars.get(i);
-    s.draw();
-    if (s.isNoLongerVisible()) {
-      stars.remove(s);
+
+    /**Make the stars, so it has a nice movement effect
+      after all, space isn't that empty */
+    if (frameCount % 1 == 0) {
+      stars.add(new BackgroundStar(random(width), random(height)));
     }
-  }
 
-  //Remove os lasers nao mais visiveis
-  //Varre o array de tras pra frente pra evitar concorrencia
-  //Java sendo Java
-  for (i = lasers.size()-1; i >= 0; i--) {
-    GameEntity s = lasers.get(i);
-    s.draw();
-    if (s.isNoLongerVisible()) {
-      lasers.remove(s);
-    }
-  }
+    //Calculates the current frequency of asteroids generation
+    currentFrequency = initialFrequency - (frameCount / 500) * frequencyIncrement;
 
-  //Remove os asteroides nao mais visiveis
-  //Varre o array de tras pra frente pra evitar concorrencia
-  //Java sendo Java
-  for (i = asteroids.size()-1; i >= 0; i--) {
-    Asteroid s = asteroids.get(i);
-    s.draw();
-    if (s.isNoLongerVisible()) {
-      asteroids.remove(s);
-    }
-  }
+    if (currentFrequency<=0) currentFrequency=10;
 
-  //Remove as explosoes nao mais visiveis
-  //Varre o array de tras pra frente pra evitar concorrencia
-  //Java sendo Java
-  for (i = explosions.size()-1; i >= 0; i--) {
-    Explosion s = explosions.get(i);
-    s.draw();
-    if (s.isNoLongerVisible()) {
-      explosions.remove(s);
+    // Verifies if should creat an ansteroid
+    if (frameCount % currentFrequency == 0) {
+      Asteroid asteroid = new Asteroid(random(100, width), random(100, height), -7000);
+      asteroid.deltaZ = 40.0; 
+      asteroids.add(asteroid);
     }
+
+
+    /**Remove the stars no longer visible
+      iterates the array backward to avoid concurrent call
+      Java as it is
+    */
+    for (int i = stars.size()-1; i >= 0; i--) {
+      BackgroundStar s = stars.get(i);
+      s.draw();
+      if (s.isNoLongerVisible()) {
+        stars.remove(s);
+      }
+    }
+
+  /**Remove the lasers no longer visible
+      iterates the array backward to avoid concurrent call
+      Java as it is
+    */
+    for (int i = lasers.size()-1; i >= 0; i--) {
+      GameEntity s = lasers.get(i);
+      s.draw();
+      if (s.isNoLongerVisible()) {
+        lasers.remove(s);
+      }
+    }
+
+    /**Remove the asteroids no longer visible
+      iterates the array backward to avoid concurrent call
+      Java as it is
+    */
+    for (int i = asteroids.size()-1; i >= 0; i--) {
+      Asteroid s = asteroids.get(i);
+      s.draw();
+      //println(asteroids.size(), ' ', i);
+      if (s.isNoLongerVisible()) {
+        asteroids.remove(s);
+      }
+    }
+
+    /**Remove the explosions no longer visible
+      iterates the array backward to avoid concurrent call
+      Java as it is
+    */
+    for (int i = explosions.size()-1; i >= 0; i--) {
+      Explosion s = explosions.get(i);
+      s.draw();
+      if (s.isNoLongerVisible()) {
+        explosions.remove(s);
+      }
+    }
+
+    /*It prints the player health ans Score */
+    fill(255);
+    textSize(10);
+    text("Life: " + player.life, width/2, 5);
+    text("Score: " + score, width/2, 30);
+
   }
 
 }
@@ -131,14 +172,15 @@ boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
     pushMatrix();
     translate(entity1.x, entity1.y, entity1.z);
     noFill();
-    stroke(255, 0, 0); // Cor vermelha
+    stroke(255, 0, 0); // Box in red
     box(entity1.entityWidth,  entity1.entityHeight, entity1.entityDepth);
+    sphere(10);
     popMatrix();
 
     pushMatrix();
     translate(entity2.x, entity2.y, entity2.z);
     noFill();
-    stroke(255, 0, 0);
+    stroke(0, 255, 0); //Box in green
     box(entity2.entityWidth,  entity2.entityHeight, entity2.entityDepth);
     popMatrix();
 
@@ -148,4 +190,8 @@ boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
   return (abs(x1 - x2) < (entity1.entityWidth + entity2.entityWidth)) &&
     (abs(y1 - y2)  < (entity1.entityHeight + entity2.entityHeight)) &&
     (abs(z1 - z2)  < (entity1.entityDepth + entity2.entityDepth));
+
+  /*return (abs(x1 - x2) < (entity1.entityWidth + entity2.entityWidth)) &&
+    (abs(y1 - y2)  < (entity1.entityHeight + entity2.entityHeight)) &&
+    (abs(z1 - z2)  < (entity1.entityDepth + entity2.entityDepth));*/
 }

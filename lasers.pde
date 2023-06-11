@@ -8,22 +8,21 @@ public class Laser extends GameEntity {
     this.entityHeight=10;
     this.entityDepth=50;
 
-    //Som do tiro
+    //Shoot!
     laserShootSounds.get((int)random(0,4)).play();
   }
 
-  /**Retorna true se nao ta mais aparecendo na tela, otimizacao de memoria: nem todo mundo tem um mac*/
+  /**Check if its no longer visible*/
   public boolean isNoLongerVisible() {
     return (z < -1000);
   }
 
   public void drawVertex() {
-    //line(0, 0, z, 0, 0, this.z-this.entityDepth);
     box(1,1,entityDepth);
     
   }
 
-  /**Logica antes de desenhar, atualiza a posicao */
+  /**Logic Before draw*/
   public void beforeDraw() {
     z -= 10;
   }

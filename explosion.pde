@@ -1,4 +1,4 @@
-/**Classe q representa um asteroid, melhor nao bater neles*/
+/**Class that represent an explosion, bang*/
 public class Explosion extends GameEntity {
   float points[][] = new float[8][3];
   float deltasX[] = new float[6];
@@ -10,20 +10,18 @@ public class Explosion extends GameEntity {
     this.z = a.z;
 
     for (int i = 0; i < 6; i++) {
-      deltasX[i]=random(-100, +100);
-      deltasY[i]=random(-100, +100);
+      deltasX[i]=random(-30, +30);
+      deltasY[i]=random(-30, +30);
     }
-
     this.points=a.points;
-
   }
 
-  /**Retorna true se nao ta mais aparecendo na tela, otimizacao de memoria: nem todo mundo tem um mac*/
+  /**Check if entity is no longer visible*/
   public boolean isNoLongerVisible() {
     return (z > thresholdForRemoval);
   }
 
-  /**Logica antes de desenhar, atualiza a posicao */
+  /**Logic before draw*/
   public void beforeDraw() {
     z += deltaZ;
     for (int i = 0; i < 6; i++) {
@@ -32,7 +30,7 @@ public class Explosion extends GameEntity {
     }
   }
 
-  /**desenha os vertices, quase 100% randomico */
+  /**Draw the exploding vertexes*/
   public void drawVertex() {
     
     pushMatrix();
@@ -114,12 +112,11 @@ public class Explosion extends GameEntity {
     popMatrix();
   }
 
-  /**Renderiza o asteroide */
+  /**Render everything*/
   public void draw() {
     pushMatrix();
     beforeDraw();
     drawVertex();
-    //println("Asteroid ", this, "in X ", x, " Y ", y, " Z ", z);
     popMatrix();
   }
 }

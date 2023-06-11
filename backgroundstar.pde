@@ -7,22 +7,22 @@ public class BackgroundStar extends GameEntity {
     this.deltaZ=1000;
   }
 
-  /**Retorna true se nao ta mais aparecendo na tela, otimizacao de memoria: nem todo mundo tem um mac*/
+  /**Check if entity is no longer visible*/
   public boolean isNoLongerVisible() {
     return (z > cameraZ);
   }
 
-  /**Logica antes de desenhar, atualiza a posicao */
+  /**Logic before draw, calculates the movement*/
   public void beforeDraw() {
     z += deltaZ;
   }
 
-  /**desenha os vertices, vulgo esfera */
+  /**draw the vertexes*/
   public void drawVertex() {
     sphere(3);
   }
 
-  /**Renderiza o asteroide */
+  /**Renders the asteroids*/
   void draw() {
 
     pushMatrix();

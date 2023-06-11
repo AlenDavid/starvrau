@@ -1,8 +1,9 @@
 
-/**Classe q representa o player, uma nave simples*/
+/**Class that represents the player, a simple ship*/
 public class Player extends GameEntity {
 
   float mainMeasure = 50.0;
+  int life = 20;
 
   public Player () {
     entityWidth=mainMeasure*2;
@@ -14,28 +15,32 @@ public class Player extends GameEntity {
     z=0.0;
   }
 
-  /**Lógica antes de desenhar a nave*/
+  /**Logic before draw the player */
   public void beforeDraw() {
     x+=deltaX;
     y+=deltaY;
     z-=deltaZ;
   }
 
-  /**Checa se um asteroid bateu na nave */
+  /**Checs collision with asteroids*/
   public void checkCollision() {
-    for (i = asteroids.size()-1; i >= 0; i--) {
-      Asteroid asteroid = asteroids.get(i);
-      if (checkIntersection(this, asteroid)) {
-        println("Player colidiu com o asteroide ", asteroid);
-        stroke(255, 0, 0);
-        explosionSounds.get((int)random(0,4)).play();
-        explosions.add(new Explosion(asteroid));
-        asteroids.remove(asteroid);
+    for (int i = asteroids.size()-1; i >= 0; i--) {
+      if (asteroids.size() > 0){
+        Asteroid asteroid = asteroids.get(i);
+        if (checkIntersection(this, asteroid)) {
+          //println("Player colidiu com o asteroide ", asteroid);
+          stroke(255, 0, 0);
+          explosionSounds.get((int)random(0,4)).play();
+          explosions.add(new Explosion(asteroid));
+          asteroids.remove(asteroid);
+          life--;
+          if(life<=0) gameOverScreen=true;
+        }
       }
     }
   }
 
-  /**Vértices da Nave */
+  /**Vertexes of th ship*/
   public void drawVertex() {
     beginShape();
 
@@ -57,19 +62,14 @@ public class Player extends GameEntity {
     endShape();
   }
 
-  /**Renderiza a Nave */
+  /**Renders the Ship*/
   public void draw() {
-    //Garante q as alteracoes acontecao na nave aenas
     pushMatrix();
     beforeDraw();
     stroke(255);
     checkCollision();
     translate(x, y, z);
-
-    //ajusta o angulo do poligono da nave
-    //rotateX(PI);
     drawVertex();
-    //println("Player in X ", x, " Y ", y, " Z ", z);
     popMatrix();
   }
 }
