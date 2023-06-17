@@ -4,6 +4,8 @@ public class Player extends GameEntity {
 
   float mainMeasure = 50.0;
   int life = 20;
+  String playerName="";
+  int score=0;
 
   public Player () {
     entityWidth=mainMeasure*2;
@@ -34,7 +36,10 @@ public class Player extends GameEntity {
           explosions.add(new Explosion(asteroid));
           asteroids.remove(asteroid);
           life--;
-          if(life<=0) gameOverScreen=true;
+          if(life<=0) {
+            gameOverScreen=true;
+            backgroundMusic.stop();
+          }
         }
       }
     }

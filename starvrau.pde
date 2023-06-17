@@ -1,5 +1,5 @@
 import processing.sound.*;
-boolean debug = false;
+boolean debug = true;
 
 void setup () {
   smooth();
@@ -41,27 +41,16 @@ void setup () {
     explosionSounds.add(
       new SoundFile(this, String.format("explosion%s.wav",i+1)));
   }
-
-
   player = new Player();
+  player.playerName="";
+  player.score=0;
 }
 
 void draw() {
   if (titleScreen){
-    background(0);
-    fill(255);
-    textSize(40);
-    textAlign(CENTER);
-    text("STAR VRAU", width/2, height/2);
-
-    textSize(10);
-    text("Enter your name and ", width/2, height/2+40);
-    text("Press SPACEBAR to start", width/2, height/2+40+25);
-
-    textSize(40);
-    fill(0,200,125);
-    text(playerName, width/2, height/2+40+85);
-    
+    drawTitleScreen();
+  } else if(gameOverScreen){
+    drawGameOverScreen();
   } else {
     resetMatrix();
     beginCamera();
@@ -112,7 +101,7 @@ void draw() {
       }
     }
 
-  /**Remove the lasers no longer visible
+    /**Remove the lasers no longer visible
       iterates the array backward to avoid concurrent call
       Java as it is
     */
@@ -149,14 +138,12 @@ void draw() {
       }
     }
 
-    /*It prints the player health ans Score */
+    /*It prints the player health ans player.score */
     fill(255);
     textSize(10);
     text("Life: " + player.life, width/2, 5);
-    text("Score: " + score, width/2, 30);
-
+    text("Score: " + player.score, width/2, 30);
   }
-
 }
 
 

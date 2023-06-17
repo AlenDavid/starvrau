@@ -3,8 +3,6 @@ float currentDeltaForPlayer=11.0;
 float thresholdForRemoval=500;
 boolean titleScreen = true;
 boolean gameOverScreen = false;
-String playerName="";
-int score=0;
 
 //Sounds
 SoundFile backgroundMusic;

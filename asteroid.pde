@@ -1,6 +1,7 @@
 /**Class that represents an asteroid, better not to hit that*/
 public class Asteroid extends GameEntity {
   float points[][] = new float[8][3];
+  float adjust = 1.5;
   int life = 2;
 
   public Asteroid(float x, float y, float z) {
@@ -58,7 +59,7 @@ public class Asteroid extends GameEntity {
           explosions.add(new Explosion(this));
           asteroids.remove(this);
           explosionSounds.get((int)random(0,4)).play();
-          score++;
+          player.score++;
         }
         stroke(255);
       }
@@ -75,35 +76,35 @@ public class Asteroid extends GameEntity {
 
     beginShape();
 
-    vertex(points[0][0]-(entityWidth), points[0][1]-(entityHeight), points[0][2]-(entityDepth));
-    vertex(points[1][0]-(entityWidth), points[1][1]-(entityHeight), points[1][2]-(entityDepth));
-    vertex(points[2][0]-(entityWidth), points[2][1]-(entityHeight), points[2][2]-(entityDepth));
-    vertex(points[3][0]-(entityWidth), points[3][1]-(entityHeight), points[3][2]-(entityDepth));
+    vertex(points[0][0]-(entityWidth*adjust), points[0][1]-(entityHeight*adjust), points[0][2]-(entityDepth));
+    vertex(points[1][0]-(entityWidth*adjust), points[1][1]-(entityHeight*adjust), points[1][2]-(entityDepth));
+    vertex(points[2][0]-(entityWidth*adjust), points[2][1]-(entityHeight*adjust), points[2][2]-(entityDepth));
+    vertex(points[3][0]-(entityWidth*adjust), points[3][1]-(entityHeight*adjust), points[3][2]-(entityDepth));
 
-    vertex(points[0][0]-(entityWidth), points[0][1]-(entityHeight), points[0][2]-(entityDepth));
-    vertex(points[1][0]-(entityWidth), points[1][1]-(entityHeight), points[1][2]-(entityDepth));
-    vertex(points[5][0]-(entityWidth), points[5][1]-(entityHeight), points[5][2]-(entityDepth));
-    vertex(points[4][0]-(entityWidth), points[4][1]-(entityHeight), points[4][2]-(entityDepth));
+    vertex(points[0][0]-(entityWidth*adjust), points[0][1]-(entityHeight*adjust), points[0][2]-(entityDepth));
+    vertex(points[1][0]-(entityWidth*adjust), points[1][1]-(entityHeight*adjust), points[1][2]-(entityDepth));
+    vertex(points[5][0]-(entityWidth*adjust), points[5][1]-(entityHeight*adjust), points[5][2]-(entityDepth));
+    vertex(points[4][0]-(entityWidth*adjust), points[4][1]-(entityHeight*adjust), points[4][2]-(entityDepth));
 
-    vertex(points[0][0]-(entityWidth), points[0][1]-(entityHeight), points[0][2]-(entityDepth));
-    vertex(points[4][0]-(entityWidth), points[4][1]-(entityHeight), points[4][2]-(entityDepth));
-    vertex(points[7][0]-(entityWidth), points[7][1]-(entityHeight), points[7][2]-(entityDepth));
-    vertex(points[3][0]-(entityWidth), points[3][1]-(entityHeight), points[3][2]-(entityDepth));
+    vertex(points[0][0]-(entityWidth*adjust), points[0][1]-(entityHeight*adjust), points[0][2]-(entityDepth));
+    vertex(points[4][0]-(entityWidth*adjust), points[4][1]-(entityHeight*adjust), points[4][2]-(entityDepth));
+    vertex(points[7][0]-(entityWidth*adjust), points[7][1]-(entityHeight*adjust), points[7][2]-(entityDepth));
+    vertex(points[3][0]-(entityWidth*adjust), points[3][1]-(entityHeight*adjust), points[3][2]-(entityDepth));
 
-    vertex(points[3][0]-(entityWidth), points[3][1]-(entityHeight), points[3][2]-(entityDepth));
-    vertex(points[2][0]-(entityWidth), points[2][1]-(entityHeight), points[2][2]-(entityDepth));
-    vertex(points[6][0]-(entityWidth), points[6][1]-(entityHeight), points[6][2]-(entityDepth));
-    vertex(points[7][0]-(entityWidth), points[7][1]-(entityHeight), points[7][2]-(entityDepth));
+    vertex(points[3][0]-(entityWidth*adjust), points[3][1]-(entityHeight*adjust), points[3][2]-(entityDepth));
+    vertex(points[2][0]-(entityWidth*adjust), points[2][1]-(entityHeight*adjust), points[2][2]-(entityDepth));
+    vertex(points[6][0]-(entityWidth*adjust), points[6][1]-(entityHeight*adjust), points[6][2]-(entityDepth));
+    vertex(points[7][0]-(entityWidth*adjust), points[7][1]-(entityHeight*adjust), points[7][2]-(entityDepth));
 
-    vertex(points[1][0]-(entityWidth), points[1][1]-(entityHeight), points[1][2]-(entityDepth));
-    vertex(points[2][0]-(entityWidth), points[2][1]-(entityHeight), points[2][2]-(entityDepth));
-    vertex(points[6][0]-(entityWidth), points[6][1]-(entityHeight), points[6][2]-(entityDepth));
-    vertex(points[5][0]-(entityWidth), points[5][1]-(entityHeight), points[5][2]-(entityDepth));
+    vertex(points[1][0]-(entityWidth*adjust), points[1][1]-(entityHeight*adjust), points[1][2]-(entityDepth));
+    vertex(points[2][0]-(entityWidth*adjust), points[2][1]-(entityHeight*adjust), points[2][2]-(entityDepth));
+    vertex(points[6][0]-(entityWidth*adjust), points[6][1]-(entityHeight*adjust), points[6][2]-(entityDepth));
+    vertex(points[5][0]-(entityWidth*adjust), points[5][1]-(entityHeight*adjust), points[5][2]-(entityDepth));
 
-    vertex(points[4][0]-(entityWidth), points[4][1]-(entityHeight), points[4][2]-(entityDepth));
-    vertex(points[7][0]-(entityWidth), points[7][1]-(entityHeight), points[7][2]-(entityDepth));
-    vertex(points[6][0]-(entityWidth), points[6][1]-(entityHeight), points[6][2]-(entityDepth));
-    vertex(points[5][0]-(entityWidth), points[5][1]-(entityHeight), points[5][2]-(entityDepth));
+    vertex(points[4][0]-(entityWidth*adjust), points[4][1]-(entityHeight*adjust), points[4][2]-(entityDepth));
+    vertex(points[7][0]-(entityWidth*adjust), points[7][1]-(entityHeight*adjust), points[7][2]-(entityDepth));
+    vertex(points[6][0]-(entityWidth*adjust), points[6][1]-(entityHeight*adjust), points[6][2]-(entityDepth));
+    vertex(points[5][0]-(entityWidth*adjust), points[5][1]-(entityHeight*adjust), points[5][2]-(entityDepth));
 
     endShape();
   }
