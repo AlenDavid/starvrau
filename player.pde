@@ -1,11 +1,10 @@
-
 /**Class that represents the player, a simple ship*/
 public class Player extends GameEntity {
 
   float mainMeasure = 50.0;
   int life = 20;
-  String playerName="";
-  int score=0;
+  String playerName = "";
+  int score = 0;
 
   public Player () {
     entityWidth=mainMeasure*2;

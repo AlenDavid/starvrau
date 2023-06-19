@@ -1,5 +1,3 @@
-import processing.sound.*;
-
 void setup () {
   smooth();
   stroke(255);
@@ -9,40 +7,10 @@ void setup () {
 
   font = createFont("font.ttf", 128);
   textFont(font);
+  
+  setupMusic();
 
-  //Inicia a musica de fundo
-  backgroundMusic= new SoundFile(this, "lasermonia.wav");
-
-  //Inicia a musica de fundo
-  titleMusic= new SoundFile(this, "hazeroid.wav");
-  titleMusic.loop();
-
-  //Inicia o array de sons dos lasers
-  for (int i=0; i<4; i++) {
-    laserShootSounds.add(
-      new SoundFile(this, String.format("laser%s.wav", i+1)));
-  }
-
-  //Inicia o array de sons dos hits
-  for (int i=0; i<4; i++) {
-    hitSounds.add(
-      new SoundFile(this, String.format("hit%s.wav", i+1)));
-  }
-
-  //Inicia o array de sons dos rolls
-  for (int i=0; i<2; i++) {
-    barrelRollSounds.add(
-      new SoundFile(this, String.format("roll%s.wav", i+1)));
-  }
-
-  //Inicia o array de sons das explosoes
-  for (int i=0; i<4; i++) {
-    explosionSounds.add(
-      new SoundFile(this, String.format("explosion%s.wav", i+1)));
-  }
   player = new Player();
-  player.playerName="";
-  player.score=0;
 }
 
 void draw() {

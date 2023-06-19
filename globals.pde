@@ -8,7 +8,7 @@ boolean gameOverScreen = false;
 // set to 'true' to enable debugging;
 boolean debug = false;
 
-//Sounds
+// Sounds
 SoundFile backgroundMusic;
 SoundFile titleMusic;
 ArrayList<SoundFile> laserShootSounds = new ArrayList<SoundFile>();
