@@ -5,8 +5,8 @@ boolean haveIpressedSpacebar = false;
 void keyPressed() {
   //INputs on title screen
   if (titleScreen) {
-   inputsForTitleScreen();
-  } else if(gameOverScreen){
+    inputsForTitleScreen();
+  } else if (gameOverScreen) {
     inputsForGameOverScreen();
   } else {
     if (key == 'w') player.deltaY = -currentDeltaForPlayer;
@@ -28,5 +28,4 @@ void keyReleased() {
   if (key == ' ') {
     haveIpressedSpacebar = false;
   }
-
 }

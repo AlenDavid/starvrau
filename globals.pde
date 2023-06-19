@@ -1,8 +1,12 @@
 Player player;
+
 float currentDeltaForPlayer=11.0;
 float thresholdForRemoval=500;
 boolean titleScreen = true;
 boolean gameOverScreen = false;
+
+// set to 'true' to enable debugging;
+boolean debug = false;
 
 //Sounds
 SoundFile backgroundMusic;
@@ -29,4 +33,3 @@ PFont font;
 
 // TODO: use this later.
 ArrayList<GameEntity> entities = new ArrayList<GameEntity>();
-

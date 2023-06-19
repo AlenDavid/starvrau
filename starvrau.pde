@@ -1,5 +1,4 @@
 import processing.sound.*;
-boolean debug = true;
 
 void setup () {
   smooth();
@@ -8,38 +7,38 @@ void setup () {
   size(800, 600, P3D);
   frameRate(60);
 
-  font = createFont("font.ttf",128);
+  font = createFont("font.ttf", 128);
   textFont(font);
 
   //Inicia a musica de fundo
   backgroundMusic= new SoundFile(this, "lasermonia.wav");
 
-   //Inicia a musica de fundo
+  //Inicia a musica de fundo
   titleMusic= new SoundFile(this, "hazeroid.wav");
   titleMusic.loop();
 
   //Inicia o array de sons dos lasers
-  for(int i=0;i<4;i++){
+  for (int i=0; i<4; i++) {
     laserShootSounds.add(
-      new SoundFile(this, String.format("laser%s.wav",i+1)));
+      new SoundFile(this, String.format("laser%s.wav", i+1)));
   }
 
   //Inicia o array de sons dos hits
-  for(int i=0;i<4;i++){
+  for (int i=0; i<4; i++) {
     hitSounds.add(
-      new SoundFile(this, String.format("hit%s.wav",i+1)));
+      new SoundFile(this, String.format("hit%s.wav", i+1)));
   }
 
   //Inicia o array de sons dos rolls
-  for(int i=0;i<2;i++){
+  for (int i=0; i<2; i++) {
     barrelRollSounds.add(
-      new SoundFile(this, String.format("roll%s.wav",i+1)));
+      new SoundFile(this, String.format("roll%s.wav", i+1)));
   }
 
   //Inicia o array de sons das explosoes
-  for(int i=0;i<4;i++){
+  for (int i=0; i<4; i++) {
     explosionSounds.add(
-      new SoundFile(this, String.format("explosion%s.wav",i+1)));
+      new SoundFile(this, String.format("explosion%s.wav", i+1)));
   }
   player = new Player();
   player.playerName="";
@@ -47,9 +46,9 @@ void setup () {
 }
 
 void draw() {
-  if (titleScreen){
+  if (titleScreen) {
     drawTitleScreen();
-  } else if(gameOverScreen){
+  } else if (gameOverScreen) {
     drawGameOverScreen();
   } else {
     resetMatrix();
@@ -71,7 +70,7 @@ void draw() {
 
 
     /**Make the stars, so it has a nice movement effect
-      after all, space isn't that empty */
+     after all, space isn't that empty */
     if (frameCount % 1 == 0) {
       stars.add(new BackgroundStar(random(width), random(height)));
     }
@@ -84,15 +83,15 @@ void draw() {
     // Verifies if should creat an ansteroid
     if (frameCount % currentFrequency == 0) {
       Asteroid asteroid = new Asteroid(random(100, width), random(100, height), -7000);
-      asteroid.deltaZ = 40.0; 
+      asteroid.deltaZ = 40.0;
       asteroids.add(asteroid);
     }
 
 
     /**Remove the stars no longer visible
-      iterates the array backward to avoid concurrent call
-      Java as it is
-    */
+     iterates the array backward to avoid concurrent call
+     Java as it is
+     */
     for (int i = stars.size()-1; i >= 0; i--) {
       BackgroundStar s = stars.get(i);
       s.draw();
@@ -102,9 +101,9 @@ void draw() {
     }
 
     /**Remove the lasers no longer visible
-      iterates the array backward to avoid concurrent call
-      Java as it is
-    */
+     iterates the array backward to avoid concurrent call
+     Java as it is
+     */
     for (int i = lasers.size()-1; i >= 0; i--) {
       GameEntity s = lasers.get(i);
       s.draw();
@@ -114,9 +113,9 @@ void draw() {
     }
 
     /**Remove the asteroids no longer visible
-      iterates the array backward to avoid concurrent call
-      Java as it is
-    */
+     iterates the array backward to avoid concurrent call
+     Java as it is
+     */
     for (int i = asteroids.size()-1; i >= 0; i--) {
       Asteroid s = asteroids.get(i);
       s.draw();
@@ -127,9 +126,9 @@ void draw() {
     }
 
     /**Remove the explosions no longer visible
-      iterates the array backward to avoid concurrent call
-      Java as it is
-    */
+     iterates the array backward to avoid concurrent call
+     Java as it is
+     */
     for (int i = explosions.size()-1; i >= 0; i--) {
       Explosion s = explosions.get(i);
       s.draw();
@@ -155,12 +154,12 @@ boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
   float y2 = entity2.y - entity2.entityHeight/2;
   float z2 = entity2.z - entity2.entityDepth/2;
 
-  if (debug){
+  if (debug) {
     pushMatrix();
     translate(entity1.x, entity1.y, entity1.z);
     noFill();
     stroke(255, 0, 0); // Box in red
-    box(entity1.entityWidth,  entity1.entityHeight, entity1.entityDepth);
+    box(entity1.entityWidth, entity1.entityHeight, entity1.entityDepth);
     sphere(10);
     popMatrix();
 
@@ -168,7 +167,7 @@ boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
     translate(entity2.x, entity2.y, entity2.z);
     noFill();
     stroke(0, 255, 0); //Box in green
-    box(entity2.entityWidth,  entity2.entityHeight, entity2.entityDepth);
+    box(entity2.entityWidth, entity2.entityHeight, entity2.entityDepth);
     popMatrix();
 
     stroke(255);
@@ -179,6 +178,6 @@ boolean checkIntersection(GameEntity entity1, GameEntity entity2) {
     (abs(z1 - z2)  < (entity1.entityDepth + entity2.entityDepth));
 
   /*return (abs(x1 - x2) < (entity1.entityWidth + entity2.entityWidth)) &&
-    (abs(y1 - y2)  < (entity1.entityHeight + entity2.entityHeight)) &&
-    (abs(z1 - z2)  < (entity1.entityDepth + entity2.entityDepth));*/
+   (abs(y1 - y2)  < (entity1.entityHeight + entity2.entityHeight)) &&
+   (abs(z1 - z2)  < (entity1.entityDepth + entity2.entityDepth));*/
 }
