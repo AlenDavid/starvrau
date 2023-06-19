@@ -2,7 +2,7 @@
 public class Player extends GameEntity {
 
   float mainMeasure = 50.0;
-  int life = 20;
+  int life = defaultStartingLife;
   String playerName = "";
   int score = 0;
 
@@ -28,15 +28,15 @@ public class Player extends GameEntity {
     for (int i = asteroids.size()-1; i >= 0; i--) {
       if (asteroids.size() > 0) {
         Asteroid asteroid = asteroids.get(i);
-        if (checkIntersection(this, asteroid)) {
-          //println("Player colidiu com o asteroide ", asteroid);
+        if (this.checkIntersection(asteroid)) {
           stroke(255, 0, 0);
           explosionSounds.get((int)random(0, 4)).play();
           explosions.add(new Explosion(asteroid));
           asteroids.remove(asteroid);
           life--;
+
           if (life<=0) {
-            gameOverScreen=true;
+            gameOverScreen = true;
             backgroundMusic.stop();
           }
         }
