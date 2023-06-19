@@ -3,13 +3,26 @@ public class Laser extends GameEntity {
     this.x = x;
     this.y = y;
     this.z = z;
+
+    this.entityWidth=10;
+    this.entityHeight=10;
+    this.entityDepth=50;
+
+    //Shoot!
+    laserShootSounds.get((int)random(0,4)).play();
+  }
+
+  /**Check if its no longer visible*/
+  public boolean isNoLongerVisible() {
+    return (z < -1000);
   }
 
   public void drawVertex() {
-    line(x, y, z, x, y, this.z-10);
+    box(1,1,entityDepth);
+    
   }
 
-  /**Logica antes de desenhar, atualiza a posicao */
+  /**Logic Before draw*/
   public void beforeDraw() {
     z -= 10;
   }
