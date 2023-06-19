@@ -2,7 +2,7 @@
 boolean debug = false;
 
 int dificulty = -7000;
-int defaultStartingLife = 3;
+int defaultStartingLife = 10;
 float currentDeltaForPlayer = 11.0;
 float thresholdForRemoval = 500;
 boolean titleScreen = true;

@@ -1,6 +1,5 @@
 /**Class that represents the player, a simple ship*/
 public class Player extends GameEntity {
-
   float mainMeasure = 50.0;
   int life = defaultStartingLife;
   String playerName = "";
@@ -11,15 +10,19 @@ public class Player extends GameEntity {
     entityDepth=mainMeasure*2;
     entityHeight=mainMeasure/1.5;
 
-    x=0.0;
-    y=0.0;
+    x=(float)(width/2);
+    y=(float)(height/2);
     z=0.0;
   }
 
   /**Logic before draw the player */
   public void beforeDraw() {
-    x+=deltaX;
-    y+=deltaY;
+    if (x + deltaX > 0.0 && x+deltaX < (float)width)
+      x+=deltaX;
+
+    if (y + deltaY > 0.0 && y+deltaY < (float)height)
+      y+=deltaY;
+
     z-=deltaZ;
   }
 
