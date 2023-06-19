@@ -1,12 +1,10 @@
-boolean haveIpressedSpacebar = false;
-
 //TODO: refactor this methods into a class object
-//TODO: Refactor Title Screen Imputs from the Game Screen
+//TODO: Refactor Title Screen Inputs from the Game Screen
 void keyPressed() {
   //INputs on title screen
   if (titleScreen) {
-   inputsForTitleScreen();
-  } else if(gameOverScreen){
+    inputsForTitleScreen();
+  } else if (gameOverScreen) {
     inputsForGameOverScreen();
   } else {
     if (key == 'w') player.deltaY = -currentDeltaForPlayer;
@@ -28,5 +26,4 @@ void keyReleased() {
   if (key == ' ') {
     haveIpressedSpacebar = false;
   }
-
 }

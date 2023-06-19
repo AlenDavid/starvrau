@@ -9,7 +9,7 @@ public class Laser extends GameEntity {
     this.entityDepth=50;
 
     //Shoot!
-    laserShootSounds.get((int)random(0,4)).play();
+    laserShootSounds.get((int)random(0, 4)).play();
   }
 
   /**Check if its no longer visible*/
@@ -18,8 +18,7 @@ public class Laser extends GameEntity {
   }
 
   public void drawVertex() {
-    box(1,1,entityDepth);
-    
+    box(1, 1, entityDepth);
   }
 
   /**Logic Before draw*/

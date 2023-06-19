@@ -50,15 +50,15 @@ public class Asteroid extends GameEntity {
   public void checkCollision() {
     for (int i = lasers.size()-1; i >= 0; i--) {
       Laser laser = lasers.get(i);
-      if (checkIntersection(this, laser)) {
+      if (this.checkIntersection(laser)) {
         stroke(255, 0, 0);
-        hitSounds.get((int)random(0,4)).play();
+        hitSounds.get((int)random(0, 4)).play();
         lasers.remove(laser);
         life--;
         if (life <= 0) {
           explosions.add(new Explosion(this));
           asteroids.remove(this);
-          explosionSounds.get((int)random(0,4)).play();
+          explosionSounds.get((int)random(0, 4)).play();
           player.score++;
         }
         stroke(255);

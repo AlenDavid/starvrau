@@ -4,6 +4,12 @@ Feevale University, 2023
 
 This is a project made using Processing. Find references and more useful information here https://processing.org/reference.
 
+## Requirements
+
+Besides processing, you will need to install the following libraries:
+
+https://processing.org/reference/libraries/sound/
+
 ## Introduction
 
 You can open this folder in Processing or through your favorite code editor. You can also run this project from terminal mode.
